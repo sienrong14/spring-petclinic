@@ -28,7 +28,7 @@ jobs:
           distribution: 'adopt'
           cache: maven
 
-      # ✅ Build the project
+      # ✅ Build the project a
       - name: Build with Maven Wrapper (skip tests)
         run: ./mvnw clean package -DskipTests
 
