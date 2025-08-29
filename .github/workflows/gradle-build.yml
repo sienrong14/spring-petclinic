@@ -29,3 +29,5 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Build with Maven
+        run: ./mvnw clean verify
