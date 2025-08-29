@@ -39,7 +39,7 @@ jobs:
       # ✅ Upload test result reports a
       - name: Upload Test Reports
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: target/surefire-reports
@@ -47,7 +47,7 @@ jobs:
       # ✅ Upload JaCoCo code coverage report
       - name: Upload Code Coverage Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: target/site/jacoco
