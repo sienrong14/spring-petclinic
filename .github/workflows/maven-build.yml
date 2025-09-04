@@ -12,31 +12,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         java: [ '17' ]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK ${{ matrix.java }}
+      - uses: actions/checkout@v4
+      - name: Set up JDK ${{matrix.java}}
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ matrix.java }}
+          java-version: ${{matrix.java}}
           distribution: 'adopt'
           cache: maven
 
-      # ✅ Build the project a
+      # Build the project (skip tests)
       - name: Build with Maven Wrapper (skip tests)
         run: ./mvnw clean package -DskipTests
 
-      # ✅ Run unit tests
+      # Run unit test
       - name: Run Unit Tests
         run: ./mvnw test
 
-      # ✅ Upload test result reports a
+      # Upload test result reports
       - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,7 +41,7 @@ jobs:
           name: test-results
           path: target/surefire-reports
 
-      # ✅ Upload JaCoCo code coverage report
+      # Upload JaCoCo code coverage reports
       - name: Upload Code Coverage Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -52,3 +49,10 @@ jobs:
           name: code-coverage-report
           path: target/site/jacoco
 
+      # Upload build reports
+      - name: Upload Build Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: target/surefire-reports
